@@ -11,16 +11,16 @@ import { GeoJSON } from "ol/format";
 
 useGeographic();
 
-const emergencyShelterLayer = new VectorLayer({
+const emergencySheltersLayer = new VectorLayer({
   source: new VectorSource({
-    url: "/KWS2100_Arbeidskrav/public/geojson/Tilfluktsrom.geojson",
+    url: "KWS2100_Arbeidskrav/public/geojson/Tilfluktsrom.geojson",
     format: new GeoJSON(),
   }),
 });
 
-const civilDefenceRegions = new VectorLayer({
+const civilDefenceRegionsLayer = new VectorLayer({
   source: new VectorSource({
-    url: "/KWS2100_Arbeidskrav/public/geojson/Sivilforsvarsdistrikter.geojson",
+    url: "KWS2100_Arbeidskrav/public/geojson/Sivilforsvarsdistrikter.geojson",
     format: new GeoJSON(),
   }),
 });
@@ -29,8 +29,8 @@ const map = new Map({
   view: new View({ center: [10.8, 59.9], zoom: 13 }),
   layers: [
     new TileLayer({ source: new OSM() }),
-    emergencyShelterLayer,
-    civilDefenceRegions,
+    emergencySheltersLayer,
+    civilDefenceRegionsLayer,
   ],
 });
 
