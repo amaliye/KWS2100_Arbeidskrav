@@ -13,14 +13,14 @@ useGeographic();
 
 const emergencySheltersLayer = new VectorLayer({
   source: new VectorSource({
-    url: "KWS2100_Arbeidskrav/public/geojson/Tilfluktsrom.geojson",
+    url: "KWS2100_Arbeidskrav/geojson/Tilfluktsrom.geojson",
     format: new GeoJSON(),
   }),
 });
 
 const civilDefenceRegionsLayer = new VectorLayer({
   source: new VectorSource({
-    url: "KWS2100_Arbeidskrav/public/geojson/Sivilforsvarsdistrikter.geojson",
+    url: "KWS2100_Arbeidskrav/geojson/Sivilforsvarsdistrikter.geojson",
     format: new GeoJSON(),
   }),
 });
