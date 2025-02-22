@@ -13,7 +13,7 @@ useGeographic();
 
 const emergencySheltersLayer = new VectorLayer({
   source: new VectorSource({
-    url: "KWS2100_Arbeidskrav/geojson/Tilfluktsrom.geojson",
+    url: "https://amaliye.github.io/KWS2100_Arbeidskrav/geojson/Tilfluktsrom.geojson",
     format: new GeoJSON(),
   }),
 });
