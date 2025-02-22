@@ -5,12 +5,33 @@ import { OSM } from "ol/source";
 import { useGeographic } from "ol/proj";
 
 import "ol/ol.css";
+import VectorLayer from "ol/layer/Vector";
+import VectorSource from "ol/source/Vector";
+import { GeoJSON } from "ol/format";
 
 useGeographic();
 
+const emergencyShelterLayer = new VectorLayer({
+  source: new VectorSource({
+    url: "/KWS2100_Arbeidskrav/public/geojson/Tilfluktsrom.geojson",
+    format: new GeoJSON(),
+  }),
+});
+
+const civilDefenceRegions = new VectorLayer({
+  source: new VectorSource({
+    url: "/KWS2100_Arbeidskrav/public/geojson/Sivilforsvarsdistrikter.geojson",
+    format: new GeoJSON(),
+  }),
+});
+
 const map = new Map({
   view: new View({ center: [10.8, 59.9], zoom: 13 }),
-  layers: [new TileLayer({ source: new OSM() })],
+  layers: [
+    new TileLayer({ source: new OSM() }),
+    emergencyShelterLayer,
+    civilDefenceRegions,
+  ],
 });
 
 export function Application() {
