@@ -4,6 +4,7 @@ import TileLayer from "ol/layer/Tile";
 import { OSM } from "ol/source";
 import { useGeographic } from "ol/proj";
 
+import "./application.css";
 import "ol/ol.css";
 import VectorLayer from "ol/layer/Vector";
 import VectorSource from "ol/source/Vector";
@@ -21,7 +22,7 @@ const emergencySheltersLayer = new VectorLayer({
   style: new Style({
     image: new CircleStyle({
       radius: 6,
-      fill: new Fill({ color: "green" }),
+      fill: new Fill({ color: "brown" }),
       stroke: new Stroke({ color: "white", width: 2 }),
     }),
   }),
@@ -34,7 +35,7 @@ const civilDefenceRegionsLayer = new VectorLayer({
   }),
   style: new Style({
     stroke: new Stroke({
-      color: "rgba(150, 100, 255, 0.8)",
+      color: "purple",
       width: 2,
     }),
   }),
@@ -46,13 +47,13 @@ const focusedStyle = () =>
       color: "rgba(230, 180, 255, 0.3)",
     }),
     stroke: new Stroke({
-      color: "rgba(150, 100, 255, 1)",
+      color: "purple",
       width: 2,
     }),
   });
 
 const map = new Map({
-  view: new View({ center: [15, 65], zoom: 4.7 }),
+  view: new View({ center: [10.8, 59.9], zoom: 10 }),
   layers: [
     new TileLayer({ source: new OSM() }),
     emergencySheltersLayer,
