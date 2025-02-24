@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { Map, View } from "ol";
+import { Map, MapBrowserEvent, View } from "ol";
 import TileLayer from "ol/layer/Tile";
 import { OSM } from "ol/source";
 import { useGeographic } from "ol/proj";
@@ -8,7 +8,8 @@ import "ol/ol.css";
 import VectorLayer from "ol/layer/Vector";
 import VectorSource from "ol/source/Vector";
 import { GeoJSON } from "ol/format";
-import { Circle as CircleStyle, Fill, Stroke, Style } from "ol/style";
+import { Fill, Stroke, Style } from "ol/style";
+import CircleStyle from "ol/style/Circle";
 
 useGeographic();
 
@@ -33,11 +34,22 @@ const civilDefenceRegionsLayer = new VectorLayer({
   }),
   style: new Style({
     stroke: new Stroke({
-      color: "purple",
+      color: "rgba(150, 100, 255, 0.8)",
       width: 2,
     }),
   }),
 });
+
+const focusedStyle = () =>
+  new Style({
+    fill: new Fill({
+      color: "rgba(230, 180, 255, 0.3)",
+    }),
+    stroke: new Stroke({
+      color: "rgba(150, 100, 255, 1)",
+      width: 2,
+    }),
+  });
 
 const map = new Map({
   view: new View({ center: [15, 65], zoom: 4.7 }),
@@ -50,8 +62,27 @@ const map = new Map({
 
 export function Application() {
   const mapRef = useRef<HTMLDivElement | null>(null);
+  const activeFeatures = useRef<any[]>([]);
+
+  const handlePointerMove = (event: MapBrowserEvent<MouseEvent>) => {
+    for (const feature of activeFeatures.current) {
+      feature.setStyle(undefined);
+    }
+
+    const civilDefenceRegions = civilDefenceRegionsLayer
+      .getSource()!
+      .getFeaturesAtCoordinate(event.coordinate);
+
+    for (const feature of civilDefenceRegions) {
+      feature.setStyle(focusedStyle());
+    }
+
+    activeFeatures.current = civilDefenceRegions;
+  };
+
   useEffect(() => {
     map.setTarget(mapRef.current!);
+    map.on("pointermove", handlePointerMove);
   }, []);
 
   return (
