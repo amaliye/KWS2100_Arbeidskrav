@@ -40,7 +40,7 @@ const civilDefenceRegionsLayer = new VectorLayer({
 });
 
 const map = new Map({
-  view: new View({ center: [10.8, 59.9], zoom: 13 }),
+  view: new View({ center: [15, 65], zoom: 4.7 }),
   layers: [
     new TileLayer({ source: new OSM() }),
     emergencySheltersLayer,
@@ -54,5 +54,14 @@ export function Application() {
     map.setTarget(mapRef.current!);
   }, []);
 
-  return <div ref={mapRef}></div>;
+  return (
+    <>
+      <header>
+        <h1>Our map application</h1>
+      </header>
+      <main>
+        <div ref={mapRef}></div>
+      </main>
+    </>
+  );
 }
