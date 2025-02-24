@@ -8,20 +8,27 @@ import "ol/ol.css";
 import VectorLayer from "ol/layer/Vector";
 import VectorSource from "ol/source/Vector";
 import { GeoJSON } from "ol/format";
-import { Stroke, Style } from "ol/style";
+import { Circle as CircleStyle, Fill, Stroke, Style } from "ol/style";
 
 useGeographic();
 
 const emergencySheltersLayer = new VectorLayer({
   source: new VectorSource({
-    url: "geojson/Tilfluktsrom.geojson",
+    url: "KWS2100_Arbeidskrav/geojson/Tilfluktsrom.geojson",
     format: new GeoJSON(),
+  }),
+  style: new Style({
+    image: new CircleStyle({
+      radius: 6,
+      fill: new Fill({ color: "green" }),
+      stroke: new Stroke({ color: "white", width: 2 }),
+    }),
   }),
 });
 
 const civilDefenceRegionsLayer = new VectorLayer({
   source: new VectorSource({
-    url: "geojson/Sivilforsvarsdistrikter.geojson",
+    url: "KWS2100_Arbeidskrav/geojson/Sivilforsvarsdistrikter.geojson",
     format: new GeoJSON(),
   }),
   style: new Style({
