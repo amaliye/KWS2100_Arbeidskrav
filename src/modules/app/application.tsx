@@ -21,7 +21,7 @@ const emergencySheltersLayer = new VectorLayer({
   }),
   style: new Style({
     image: new CircleStyle({
-      radius: 6,
+      radius: 7,
       fill: new Fill({ color: "white" }),
       stroke: new Stroke({ color: "hotpink", width: 2 }),
     }),
