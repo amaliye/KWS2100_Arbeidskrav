@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { Map, MapBrowserEvent, View } from "ol";
+import { Feature, Map, MapBrowserEvent, View } from "ol";
 import TileLayer from "ol/layer/Tile";
 import { OSM } from "ol/source";
 import { useGeographic } from "ol/proj";
@@ -17,7 +17,7 @@ useGeographic();
 
 const emergencySheltersLayer = new VectorLayer({
   source: new VectorSource({
-    url: "KWS2100_Arbeidskrav/geojson/Tilfluktsrom.geojson",
+    url: "geojson/Tilfluktsrom.geojson",
     format: new GeoJSON(),
   }),
   style: (feature: FeatureLike) => {
@@ -57,7 +57,7 @@ const focusedShelterStyle = (feature: FeatureLike) =>
 */
 const civilDefenceRegionsLayer = new VectorLayer({
   source: new VectorSource({
-    url: "KWS2100_Arbeidskrav/geojson/Sivilforsvarsdistrikter.geojson",
+    url: "geojson/Sivilforsvarsdistrikter.geojson",
     format: new GeoJSON(),
   }),
   style: new Style({
@@ -90,7 +90,7 @@ const map = new Map({
 
 export function Application() {
   const mapRef = useRef<HTMLDivElement | null>(null);
-  const activeFeatures = useRef<any[]>([]);
+  const activeFeatures = useRef<Feature[]>([]);
 
   const handlePointerMove = (event: MapBrowserEvent<MouseEvent>) => {
     for (const feature of activeFeatures.current) {
