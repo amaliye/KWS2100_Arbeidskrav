@@ -9,8 +9,9 @@ import "ol/ol.css";
 import VectorLayer from "ol/layer/Vector";
 import VectorSource from "ol/source/Vector";
 import { GeoJSON } from "ol/format";
-import { Fill, Stroke, Style } from "ol/style";
+import { Fill, Stroke, Style, Text } from "ol/style";
 import CircleStyle from "ol/style/Circle";
+import { FeatureLike } from "ol/Feature";
 
 useGeographic();
 
@@ -19,15 +20,41 @@ const emergencySheltersLayer = new VectorLayer({
     url: "KWS2100_Arbeidskrav/geojson/Tilfluktsrom.geojson",
     format: new GeoJSON(),
   }),
-  style: new Style({
+  style: (feature: FeatureLike) => {
+    return new Style({
+      image: new CircleStyle({
+        radius: 7,
+        fill: new Fill({ color: "white" }),
+        stroke: new Stroke({ color: "hotpink", width: 2 }),
+      }),
+      text: new Text({
+        text: feature.get("adresse"),
+        font: "bold 14px Arial",
+        fill: new Fill({ color: "black" }),
+        stroke: new Stroke({ color: "white", width: 2 }),
+        offsetY: -15,
+      }),
+    });
+  },
+});
+
+/*
+const focusedShelterStyle = (feature: FeatureLike) =>
+  new Style({
     image: new CircleStyle({
       radius: 7,
       fill: new Fill({ color: "white" }),
       stroke: new Stroke({ color: "hotpink", width: 2 }),
     }),
-  }),
-});
-
+    text: new Text({
+      text: feature.get("adresse"),
+      font: "bold 14px Arial",
+      fill: new Fill({ color: "black" }),
+      stroke: new Stroke({ color: "white", width: 2 }),
+      offsetY: -15,
+    }),
+  });
+*/
 const civilDefenceRegionsLayer = new VectorLayer({
   source: new VectorSource({
     url: "KWS2100_Arbeidskrav/geojson/Sivilforsvarsdistrikter.geojson",
@@ -41,7 +68,7 @@ const civilDefenceRegionsLayer = new VectorLayer({
   }),
 });
 
-const focusedStyle = () =>
+const focusedRegionStyle = () =>
   new Style({
     fill: new Fill({
       color: "rgba(230, 250, 255, 0.3)",
@@ -75,7 +102,7 @@ export function Application() {
       .getFeaturesAtCoordinate(event.coordinate);
 
     for (const feature of civilDefenceRegions) {
-      feature.setStyle(focusedStyle());
+      feature.setStyle(focusedRegionStyle());
     }
 
     activeFeatures.current = civilDefenceRegions;
