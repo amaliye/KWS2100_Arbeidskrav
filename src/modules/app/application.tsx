@@ -22,8 +22,8 @@ const emergencySheltersLayer = new VectorLayer({
   style: new Style({
     image: new CircleStyle({
       radius: 6,
-      fill: new Fill({ color: "brown" }),
-      stroke: new Stroke({ color: "white", width: 2 }),
+      fill: new Fill({ color: "white" }),
+      stroke: new Stroke({ color: "hotpink", width: 2 }),
     }),
   }),
 });
@@ -35,7 +35,7 @@ const civilDefenceRegionsLayer = new VectorLayer({
   }),
   style: new Style({
     stroke: new Stroke({
-      color: "purple",
+      color: "white",
       width: 2,
     }),
   }),
@@ -44,11 +44,11 @@ const civilDefenceRegionsLayer = new VectorLayer({
 const focusedStyle = () =>
   new Style({
     fill: new Fill({
-      color: "rgba(230, 180, 255, 0.3)",
+      color: "rgba(230, 250, 255, 0.3)",
     }),
     stroke: new Stroke({
-      color: "purple",
-      width: 2,
+      color: "white",
+      width: 4,
     }),
   });
 
@@ -89,7 +89,7 @@ export function Application() {
   return (
     <>
       <header>
-        <h1>Our map application</h1>
+        <h1>Save yourself! Check your nearest emergency shelter here ! </h1>
       </header>
       <main>
         <div ref={mapRef}></div>

@@ -5,3 +5,15 @@
 #root {
   height: 100dvh;
 }
+
+header {
+  display: flex;
+  justify-content: center;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+h1 {
+  font-family: "Helvetica Neue", sans-serif;
+  color: hotpink;
+}
